@@ -1,0 +1,10 @@
+name=FLCM1
+version=1.0.0
+author=FundyLab
+maintainer=fundylab <fundylab@gmail.com>
+sentence=CAN Monitor program for FLCM1
+paragraph=CAN Monitor program for FLCM1. Used MCP25625 can tranceiver/controller, corresponds to CAN2.0B. There are the touch panel LCD module, the DSUB-9pin male connector, USB type-c, AUX connector,etc. This library included FLCM1_mb1.ino, FLCM1_IO.cpp, FLCM1_IO.h, FL_melody.cpp, FL_melody.h, debug.h, mcp25625_can.cpp, mcp25625_can.h, mcp25625_can_dfs.h, mcp_can.cpp, mcp_can.h, screen.cpp, screen.h
+category=Instruments
+url=https://github.com/FundyLab/FLCM1
+architectures=*
+depends=Adafruit ILI9341, Adafruit GFX Library, Adafruit Zero DMA Library

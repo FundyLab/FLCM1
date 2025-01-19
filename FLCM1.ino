@@ -23,6 +23,7 @@
 */
 /*
   Revision
+  v1.0.0: first
 
 */
 /*
@@ -84,7 +85,7 @@ SPIClassSAMD auxSPI(&sercom4, AUX_MISO, AUX_SCK, AUX_MOSI, SPI_PAD_2_SCK_3, SERC
 */
 
 // ***** Port set speedup definitions
-/*#define digitalWrite(x, state) { \
+#define digitalWrite(x, state) { \
     PortGroup *port; \
     port = (PortGroup *)digitalPinToPort(x); \
     if (state == HIGH) { \
@@ -92,7 +93,7 @@ SPIClassSAMD auxSPI(&sercom4, AUX_MISO, AUX_SCK, AUX_MOSI, SPI_PAD_2_SCK_3, SERC
     } else { \
         port->OUTCLR.reg = digitalPinToBitMask(x); \
     } \
-}*/
+}
 
 // ***** Device Settings difinitions
 SettingsManager setMan = SettingsManager();
@@ -166,7 +167,7 @@ const int outputPorts_CO[PIN_COCOUNT] = {PIN_CO0, PIN_CO1, PIN_CO2, PIN_CO3};
 #define PIN_SW1         PB03 // Digital Input
 #define SWDETPERIOD     5    // in ms
 #define SWLONGTHRESH    1000 // in ms
-#define PUSHDELAYTIME   50   // in ms
+#define PUSHDELAYTIME   10   // in ms
 const int OUTCNT_SW = 4;       // get SW mux output port count
 const int INCNT_SW = 2;        // get SW mux input port count
 const int outputPorts_SW[OUTCNT_SW] = {PIN_SWA, PIN_SWB, PIN_SWC, PIN_SWD};    // SW mux outputs
@@ -288,7 +289,7 @@ public:
     if(fAlternateOutput){
       // スイッチの状態を読み取る
       for (int j = 0; j < inputCount; j++) {
-        bool state = digitalRead(inputPorts[j]);                               // state:0 if pushed
+        bool state = digitalRead(inputPorts[j]);                        // state:0 if pushed
         currentSwStates |= ((!state) << (outputPtr * inputCount + j));  // bit invert and set 
       }
       // 次の行を選択、及び全SW読み取った時の処理
@@ -356,13 +357,11 @@ private:
       digitalPinToPort(outputPorts[i])->OUTSET.reg = digitalPinToBitMask(outputPorts[i]);
     }
     if(fAlternateOutput){     // 今の出力をdisable(high)にする
-      //digitalWrite(prevPortNum, HIGH);
-      //digitalPinToPort(prevPortNum)->OUTSET.reg = digitalPinToBitMask(prevPortNum);
+      digitalPinToPort(prevPortNum)->OUTSET.reg = digitalPinToBitMask(prevPortNum);
       fAlternateOutput = false;
     }
     else{
-      // selPortNumで指定された次の出力ポートをactive(Low)にする
-      //digitalWrite(newPortNum, LOW);
+      // 次の出力ポートをactive(Low)にする
       digitalPinToPort(newPortNum)->OUTCLR.reg = digitalPinToBitMask(newPortNum);
       prevPortNum = newPortNum;
       fAlternateOutput = true;

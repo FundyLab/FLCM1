@@ -165,9 +165,9 @@ const int outputPorts_CO[PIN_COCOUNT] = {PIN_CO0, PIN_CO1, PIN_CO2, PIN_CO3};
 #define PIN_SWD         PA14 // Digital Output PCBv1.0
 #define PIN_SW0         PA27 // Digital Input PCBv1.0
 #define PIN_SW1         PB03 // Digital Input
-#define SWDETPERIOD     5    // in ms
+#define SWDETPERIOD     1    // in ms
 #define SWLONGTHRESH    1000 // in ms
-#define PUSHDELAYTIME   10   // in ms
+#define PUSHDELAYTIME   1   // in ms
 const int OUTCNT_SW = 4;       // get SW mux output port count
 const int INCNT_SW = 2;        // get SW mux input port count
 const int outputPorts_SW[OUTCNT_SW] = {PIN_SWA, PIN_SWB, PIN_SWC, PIN_SWD};    // SW mux outputs
@@ -482,10 +482,10 @@ void swDet(uint16_t &pushedSw, uint16_t &longpushedSw){
       if(pushedSw){
         fPushDelay = true;
         pushDelay.reset();
-        DEBUG2_PRINT("SW pressed = "); DEBUG2_PRINTLN(pushedSw);
+        DEBUG_PRINT("SW pressed = "); DEBUG_PRINTLN(pushedSw);
       }
       if(longpushedSw){
-        DEBUG2_PRINT(" SW long pressed = "); DEBUG2_PRINTLN(longpushedSw);
+        DEBUG_PRINT(" SW long pressed = "); DEBUG_PRINTLN(longpushedSw);
       }
     }
   }
@@ -503,8 +503,8 @@ void touchDet(int &touched, int &tx, int &ty){
     if(touched > 0){
       fTouchDelay = true;
       touchDelay.reset();
-      DEBUG2_PRINT("Touched!! x,y,z = "); DEBUG2_PRINT(tx); DEBUG2_PRINT(", "); DEBUG2_PRINT(ty);
-      DEBUG2_PRINT(", "); DEBUG2_PRINTLN(touched);
+      DEBUG_PRINT("Touched!! x,y,z = "); DEBUG_PRINT(tx); DEBUG_PRINT(", "); DEBUG_PRINT(ty);
+      DEBUG_PRINT(", "); DEBUG_PRINTLN(touched);
     }
   }
   else{               // in the touch delay time
@@ -554,10 +554,10 @@ void getCanMsg(canMessageSet &msgSet){
 
 // make a string for display 1 line
 void formatMsg1line(canMessageSet &msgSet, String &canString){
-  // 数値をフォーマット
+  // IDをフォーマット
   char hexStr[CANIDDIGIT8 + 1];   // 桁数+null文字分
   sprintf(hexStr, HEXDIGIT8, msgSet.id);
-  // 文字列に変換
+  // Data列を文字列に変換
   canString = String(hexStr) + " Msg: ";
   for (int i = 0; i < msgSet.len; i++) canString += String(msgSet.buf[i], HEX) + " ";
 }

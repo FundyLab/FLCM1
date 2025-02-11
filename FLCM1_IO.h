@@ -129,7 +129,7 @@
 #define STATUSLINE_LINECOLOR        ILI9341_CYAN
 #define STATUSLINE_TEXTCOLOR        ILI9341_YELLOW
 #define SWFMENUCOUNT    MUTABLEOBJMAX
-#define COMENUCOUNT     6
+#define COMENUCOUNT     4
 #define AUXMENUCOUNT    3
 #define OPMENUCOUNT     1
 #define DSHWFPOS_MASK0  0
@@ -301,7 +301,7 @@ enum ePage {
   LIST_TYPE, MENU_TOP, HWF, SWF, CO, AO, SL, OP,                  // Main menu
   HWFF0, HWFF1, HWFF2, HWFF3, HWFF4, HWFF5,                       // HardWareFilter Filter
   SWF0, SWF1, SWF2, SWF3, SWF4, SWF5, SWF6, SWF7,                 // SoftWareFilter
-  CO0, CO1, CO2, CO3, CO4, CO5,                                   // CompareOut
+  CO0, CO1, CO2, CO3,                                             // CompareOut
   SL0, SL1, SL2, SL3, SL4, SL5, SL6, SL7,                         // SaveLoad
   // Button8 type
   BUTTON_TYPE, CAN_SPEED,
